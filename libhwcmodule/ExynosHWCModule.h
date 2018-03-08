@@ -31,15 +31,6 @@
 #define SMEM_PATH "/dev/s5p-smem"
 #define SECMEM_IOC_SET_VIDEO_EXT_PROC   _IOWR('S', 13, int)
 
-#define HWC_VERSION HWC_DEVICE_API_VERSION_1_5
-
-/* Max number windows available in Exynos7420 is 7. */
-#define NUM_AVAILABLE_HW_WINDOWS	7
-
-/* IDMA_G2 and IDMA_G3 cause decon register crashes on Exynos7420 */
-#define DISABLE_IDMA_SECURE
-
-const size_t GSC_DST_W_ALIGNMENT_RGB888 = 1;
 const size_t GSC_DST_CROP_W_ALIGNMENT_RGB888 = 1;
 const size_t GSC_W_ALIGNMENT = 16;
 const size_t GSC_H_ALIGNMENT = 16;
