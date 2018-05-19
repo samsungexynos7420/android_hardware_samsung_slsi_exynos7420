@@ -12,6 +12,8 @@
 ExynosPrimaryDisplay::ExynosPrimaryDisplay(int numGSCs, struct exynos5_hwc_composer_device_1_t *pdev) :
     ExynosOverlayDisplay(numGSCs, pdev)
 {
+    mInternalDMAs.clear();
+    mCheckIDMAMPP = new ExynosMPPModule(NULL, MPP_DEFAULT, 0);
 }
 
 ExynosPrimaryDisplay::~ExynosPrimaryDisplay()
