@@ -19,6 +19,12 @@
 #include <hardware/hwcomposer.h>
 #include <decon-fb.h>
 
+<<<<<<< HEAD
+=======
+#define HWC_VERSION     HWC_DEVICE_API_VERSION_1_5
+#define IDMA_SECURE IDMA_G2
+
+>>>>>>> 0b70dd8 (libhwcmodule: reconfigure overlay to support exynos7420 (remove MPP_VPP_G))
 #define VSYNC_DEV_PREFIX "/sys/devices/"
 #define VSYNC_DEV_NAME  "13930000.decon_fb/vsync"
 
@@ -51,7 +57,10 @@ const int AVAILABLE_GSC_UNITS[] = { 0, 2, 1, 1, 5, 4 };
 #define MPP_VG          0
 #define MPP_VGR         2
 #define MPP_MSC         4
-#define MPP_VPP_G       10
+// #define MPP_VPP_G       10
+
+// only may assume MPP_VGR and MPP_VPP_G
+#define MPP_DEFAULT     MPP_VGR
 
 #define EXTERNAL_MPPS   5
 
@@ -60,6 +69,10 @@ struct exynos_mpp_t {
     unsigned int index;
 };
 
+/* VPP_G0 is secure dma, It is managed as IDMA_SECURE separately*/
+const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
 const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}};
+
+#define DEFAULT_MPP_DST_FORMAT HAL_PIXEL_FORMAT_RGBX_8888
 
 #endif
