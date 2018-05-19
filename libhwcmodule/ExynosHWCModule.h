@@ -59,8 +59,7 @@ const int AVAILABLE_GSC_UNITS[] = { 0, 2, 1, 1, 5, 4 };
 #define MPP_MSC         4
 // #define MPP_VPP_G       10
 
-// only may assume MPP_VGR and MPP_VPP_G
-#define MPP_DEFAULT     MPP_VGR
+#define MPP_DEFAULT     MPP_VG
 
 #define EXTERNAL_MPPS   5
 
