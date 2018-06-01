@@ -57,9 +57,9 @@ const int AVAILABLE_GSC_UNITS[] = { 0, 2, 1, 1, 5, 4 };
 #define MPP_VG          0
 #define MPP_VGR         2
 #define MPP_MSC         4
-// #define MPP_VPP_G       10
+#define MPP_VPP_G       10
 
-#define MPP_DEFAULT     MPP_VG
+#define MPP_DEFAULT     MPP_VPP_G
 
 #define EXTERNAL_MPPS   5
 
@@ -73,5 +73,30 @@ const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {
 const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}};
 
 #define DEFAULT_MPP_DST_FORMAT HAL_PIXEL_FORMAT_RGBX_8888
+
+//
+// v4 = *(_DWORD *)(a2 + 16);    <--  internalMPP->mType/const int &index
+// if ( v4 <= 3 )
+//     return dword_1245C[v4];
+//
+// .rodata:0001245C ; _DWORD dword_1245C[4]
+// .rodata:0001245C dword_1245C     DCD 0, 1, 6, 7          ; DATA XREF: ExynosDisplay::getDeconDMAType(ExynosMPPModule *)+20↑o
+// .rodata:0001245C                                         ; .text:off_CA70↑o
+//
+static int MPP_VPP_G_TYPE(const int &index)
+{
+    switch (index) {
+    case 0:
+        return IDMA_G0;
+    case 1:
+        return IDMA_G1;
+    case 2:
+        return IDMA_G2;
+    case 3:
+        return IDMA_G3;
+    default:
+        return -1;
+    }
+}
 
 #endif
