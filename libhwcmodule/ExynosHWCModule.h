@@ -43,15 +43,20 @@ const size_t GSC_W_ALIGNMENT = 16;
 const size_t GSC_H_ALIGNMENT = 16;
 const size_t GSC_DST_H_ALIGNMENT_RGB888 = 1;
 
-const size_t FIMD_GSC_IDX = 0;
-const size_t FIMD_EXT_MPP_IDX = 0;
-/* HDMI_GSC_IDX is not used but added for build issue */
-const size_t HDMI_GSC_IDX = 2;
-const size_t HDMI_EXT_MPP_IDX = 1;
-const size_t WFD_GSC_IDX = 1;
-const size_t WFD_EXT_MPP_IDX = 2;
-
-const int FIMD_GSC_USAGE_IDX[] = {FIMD_GSC_IDX};
+//
+// --- _DWORD *__fastcall ExynosMPP::ExynosMPP(_DWORD *a1, int a2, int a3)
+//
+// v3[3] = dword_B2B0[v5];    <--  mType = AVAILABLE_GSC_UNITS[gscIndex];
+//
+//     v3            <--  ExynosMPP Instance
+//     dword_B2B0    <--  AVAILABLE_GSC_UNITS
+//     v5            <--  gscIndex
+//
+// .rodata:0000B2B0 ; _DWORD dword_B2B0[6]
+// .rodata:0000B2B0 dword_B2B0      DCD 0, 2, 1, 1, 5, 4    ; DATA XREF: ExynosMPP::ExynosMPP(ExynosDisplay *,int)+44↑o
+//
+// REMARK: Third index requested as mType is preceeded by the VMT and two pointers
+//
 const int AVAILABLE_GSC_UNITS[] = { 0, 2, 1, 1, 5, 4 };
 
 #define MPP_VG          0
