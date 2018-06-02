@@ -22,17 +22,66 @@
 <<<<<<< HEAD
 =======
 #define HWC_VERSION     HWC_DEVICE_API_VERSION_1_5
-#define IDMA_SECURE IDMA_G2
 
+<<<<<<< HEAD
 >>>>>>> 0b70dd8 (libhwcmodule: reconfigure overlay to support exynos7420 (remove MPP_VPP_G))
+=======
+//
+// confirmed by decompiling stock-HWC
+//
+//       if ( *((_BYTE *)v2 + 1844)
+//           && v2[54] == v48 - 2
+//           && (*(int (__fastcall **)(_DWORD *, int, int))(*v2 + 144))(v2, v117, v118) == 1 )
+//       {
+//           v9 = v2[62];
+//           v10 = *(_DWORD *)(v2[12] + 256);
+//           *(_DWORD *)(*(_DWORD *)(v2[17] + 4 * *(_DWORD *)(v3 + 16) - 4) + 16) = 6;
+//           if ( v9 < v10 )
+//               v10 = v9;
+//       }
+//
+// REMARK:  ```(...) = 6;``` corresponds with ```mLayerInfos[contents->numHwLayers - 1]->mDmaType = IDMA_SECURE;```
+//
+#define IDMA_SECURE     IDMA_G2
+
+// quite sure this doesn't need further confirmation
+>>>>>>> 3320de7 (libhwcmodule: further update decompile-documentation)
 #define VSYNC_DEV_PREFIX "/sys/devices/"
 #define VSYNC_DEV_NAME  "13930000.decon_fb/vsync"
 
+//
+// confirmed by decompiling stock-HWC/using default values
+//
+// REMARK: optimizations removed single FIMD burstlen values, used default values
+//         to achieve found value
+//
+//     if ( (unsigned int)(v36 * (v38 - v40) / 8) <= 0xFF )
+//
+// REMARK: burstlen values got optimized to 0xFF, default values
+//         are used to get to [ 16, 16, 0 ]
+//
 #define FIMD_WORD_SIZE_BYTES   16
 #define FIMD_BURSTLEN   16
 #define FIMD_ADDED_BURSTLEN_BYTES     0
-#define FIMD_BW_OVERLAP_CHECK
 
+//
+// confirmed by decompiling stock-HWC
+//
+//     if ( v186 - v91 >= 16 )
+//     {
+//         v92 = *(_DWORD *)(v8 + 28);
+//     }
+//     else
+//     {
+//         v92 = *(_DWORD *)(v8 + 28);
+//         if ( v91 + 16 <= v92 )
+//             v90 = v91 + 16;
+//         else
+//             v91 = v186 - 16;
+//     }
+//
+// REMARK: inverted ```if (HEIGHT(updateRect) < WINUPDATE_MIN_HEIGHT) { ... }```
+//
 #define WINUPDATE_MIN_HEIGHT 16
 
 #define SMEM_PATH "/dev/s5p-smem"
@@ -44,13 +93,15 @@ const size_t GSC_H_ALIGNMENT = 16;
 const size_t GSC_DST_H_ALIGNMENT_RGB888 = 1;
 
 //
+// confirmed by decompiling stock-HWC
+//
 // --- _DWORD *__fastcall ExynosMPP::ExynosMPP(_DWORD *a1, int a2, int a3)
 //
-// v3[3] = dword_B2B0[v5];    <--  mType = AVAILABLE_GSC_UNITS[gscIndex];
+//     v3[3] = dword_B2B0[v5];    <--  mType = AVAILABLE_GSC_UNITS[gscIndex];
 //
-//     v3            <--  ExynosMPP Instance
-//     dword_B2B0    <--  AVAILABLE_GSC_UNITS
-//     v5            <--  gscIndex
+//         v3            <--  ExynosMPP Instance
+//         dword_B2B0    <--  AVAILABLE_GSC_UNITS
+//         v5            <--  gscIndex
 //
 // .rodata:0000B2B0 ; _DWORD dword_B2B0[6]
 // .rodata:0000B2B0 dword_B2B0      DCD 0, 2, 1, 1, 5, 4    ; DATA XREF: ExynosMPP::ExynosMPP(ExynosDisplay *,int)+44↑o
@@ -74,6 +125,8 @@ struct exynos_mpp_t {
 };
 
 //
+// confirmed by decompiling stock-HWC
+//
 // .rodata:000124BC ; _DWORD dword_124BC[8]
 // .rodata:000124BC dword_124BC     DCD 0, 0, 0, 1, 2, 0, 2, 1
 // .rodata:000124BC                                         ; DATA XREF: ExynosDisplayResourceManagerModule::ExynosDisplayResourceManagerModule(exynos5_hwc_composer_device_1_t *)+2E↑o
@@ -81,6 +134,8 @@ struct exynos_mpp_t {
 //
 const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
 
+//
+// confirmed by decompiling stock-HWC
 //
 // .rodata:000124DC ; _DWORD dword_124DC[10]
 // .rodata:000124DC dword_124DC     DCD 4, 0, 4, 0, 4, 0, 4, 0, 4, 0
@@ -92,9 +147,11 @@ const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0},
 #define DEFAULT_MPP_DST_FORMAT HAL_PIXEL_FORMAT_RGBX_8888
 
 //
-// v4 = *(_DWORD *)(a2 + 16);    <--  internalMPP->mType/const int &index
-// if ( v4 <= 3 )
-//     return dword_1245C[v4];
+// confirmed by decompiling stock-HWC
+//
+//     v4 = *(_DWORD *)(a2 + 16);    <--  internalMPP->mType/const int &index
+//     if ( v4 <= 3 )
+//         return dword_1245C[v4];
 //
 // .rodata:0001245C ; _DWORD dword_1245C[4]
 // .rodata:0001245C dword_1245C     DCD 0, 1, 6, 7          ; DATA XREF: ExynosDisplay::getDeconDMAType(ExynosMPPModule *)+20↑o
