@@ -73,8 +73,20 @@ struct exynos_mpp_t {
     unsigned int index;
 };
 
-/* VPP_G0 is secure dma, It is managed as IDMA_SECURE separately*/
+//
+// .rodata:000124BC ; _DWORD dword_124BC[8]
+// .rodata:000124BC dword_124BC     DCD 0, 0, 0, 1, 2, 0, 2, 1
+// .rodata:000124BC                                         ; DATA XREF: ExynosDisplayResourceManagerModule::ExynosDisplayResourceManagerModule(exynos5_hwc_composer_device_1_t *)+2E↑o
+// .rodata:000124BC                                         ; .text:off_DA70↑o
+//
 const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
+
+//
+// .rodata:000124DC ; _DWORD dword_124DC[10]
+// .rodata:000124DC dword_124DC     DCD 4, 0, 4, 0, 4, 0, 4, 0, 4, 0
+// .rodata:000124DC                                         ; DATA XREF: ExynosDisplayResourceManagerModule::ExynosDisplayResourceManagerModule(exynos5_hwc_composer_device_1_t *)+96↑o
+// .rodata:000124DC                                         ; .text:off_DA78↑o
+//
 const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}};
 
 #define DEFAULT_MPP_DST_FORMAT HAL_PIXEL_FORMAT_RGBX_8888
