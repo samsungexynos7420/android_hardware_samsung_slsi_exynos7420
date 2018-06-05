@@ -135,17 +135,14 @@ struct exynos_mpp_t {
 // Order changed to work around the VG-channels (which do not have working blending)
 //
 // Current state:
-//     - 4 working HW windows (should be enough for most things)
-//     - VG-channels theoretically work, but unsuited for usage
-//       due to missing blending-capability; properly works with
-//       cropped layers WITHOUT ANY transparent area
-//     - Dropping to 3 HW windows is the 4-layer-limit is crossed
-//       due to FB target layer reserving one window
+//     - 6 working HW windows (should be enough for most things)
+//     - VG-channels have been bound to non-blending layers only,
+//       giving us one more free HW window + one reserve for another
+//       non-blending layer (VG1), VG0 normally is bound to window #0
 //
-//
-//  - VG          --  Unable of blending, useless for now
-//    - VG0         -- See VG
-//    - VG1         -- See VG
+//  - VG          --  Working as expected, unable to work with blending
+//    - VG0         -- Normally bound to window #0 (background-layer)
+//    - VG1         -- Reserve if Android requests another non-blending layer
 //  - VGR         --  Fully working and stable
 //    - VGR0
 //    - VGR1
