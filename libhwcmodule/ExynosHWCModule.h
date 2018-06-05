@@ -132,7 +132,29 @@ struct exynos_mpp_t {
 // .rodata:000124BC                                         ; DATA XREF: ExynosDisplayResourceManagerModule::ExynosDisplayResourceManagerModule(exynos5_hwc_composer_device_1_t *)+2E↑o
 // .rodata:000124BC                                         ; .text:off_DA70↑o
 //
-const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
+// Order changed to work around the VG-channels (which do not have working blending)
+//
+// Current state:
+//     - 4 working HW windows (should be enough for most things)
+//     - VG-channels theoretically work, but unsuited for usage
+//       due to missing blending-capability; properly works with
+//       cropped layers WITHOUT ANY transparent area
+//     - Dropping to 3 HW windows is the 4-layer-limit is crossed
+//       due to FB target layer reserving one window
+//
+//
+//  - VG          --  Unable of blending, useless for now
+//    - VG0         -- See VG
+//    - VG1         -- See VG
+//  - VGR         --  Fully working and stable
+//    - VGR0
+//    - VGR1
+//  - VPP_G       --  Partially working and stable
+//    - VPP_G0      --  Fully working and stable
+//    - VPP_G1      --  Same as VPP_G0
+//    - VPP_G2      --  Leads to DECON DMA Register crashes/freezes
+//
+const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VPP_G, 0}, {MPP_VPP_G, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
 
 //
 // confirmed by decompiling stock-HWC
@@ -143,6 +165,10 @@ const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {
 // .rodata:000124DC                                         ; .text:off_DA78↑o
 //
 const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}};
+
+// Overriden to work around VG-channels (See AVAILABLE_INTERNAL_MPP_UNITS)
+const uint32_t VPP_ASSIGN_ORDER[] = {MPP_VPP_G, MPP_VGR};
+#define VPP_ASSIGN_ORDER_DEFINED
 
 #define DEFAULT_MPP_DST_FORMAT HAL_PIXEL_FORMAT_RGBX_8888
 
@@ -165,9 +191,8 @@ static int MPP_VPP_G_TYPE(const int &index)
     case 1:
         return IDMA_G1;
     case 2:
-        return IDMA_G2;
     case 3:
-        return IDMA_G3;
+        // IDMA_G2 is used as SecureDMA and both G2 and G3 lead to DECON DMA Register failures
     default:
         return -1;
     }
