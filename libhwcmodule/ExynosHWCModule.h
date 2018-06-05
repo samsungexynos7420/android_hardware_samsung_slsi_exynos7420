@@ -154,7 +154,12 @@ struct exynos_mpp_t {
 //    - VPP_G1      --  Same as VPP_G0
 //    - VPP_G2      --  Leads to DECON DMA Register crashes/freezes
 //
-const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VPP_G, 0}, {MPP_VPP_G, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
+const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {MPP_VPP_G, 0}, {MPP_VPP_G, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
+
+//
+// removes support for blending from VG-channels
+//
+#define MPP_VG_IS_BLEND_INCAPABLE
 
 //
 // confirmed by decompiling stock-HWC
@@ -167,7 +172,7 @@ const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VPP_G, 0}, {MPP_VPP_G,
 const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}};
 
 // Overriden to work around VG-channels (See AVAILABLE_INTERNAL_MPP_UNITS)
-const uint32_t VPP_ASSIGN_ORDER[] = {MPP_VPP_G, MPP_VGR};
+const uint32_t VPP_ASSIGN_ORDER[] = {MPP_VG, MPP_VPP_G, MPP_VGR};
 #define VPP_ASSIGN_ORDER_DEFINED
 
 #define DEFAULT_MPP_DST_FORMAT HAL_PIXEL_FORMAT_RGBX_8888
