@@ -19,13 +19,8 @@
 #include <hardware/hwcomposer.h>
 #include <decon-fb.h>
 
-<<<<<<< HEAD
-=======
 #define HWC_VERSION     HWC_DEVICE_API_VERSION_1_5
 
-<<<<<<< HEAD
->>>>>>> 0b70dd8 (libhwcmodule: reconfigure overlay to support exynos7420 (remove MPP_VPP_G))
-=======
 //
 // confirmed by decompiling stock-HWC
 //
@@ -45,7 +40,6 @@
 #define IDMA_SECURE     IDMA_G2
 
 // quite sure this doesn't need further confirmation
->>>>>>> 3320de7 (libhwcmodule: further update decompile-documentation)
 #define VSYNC_DEV_PREFIX "/sys/devices/"
 #define VSYNC_DEV_NAME  "13930000.decon_fb/vsync"
 
@@ -192,9 +186,13 @@ static int MPP_VPP_G_TYPE(const int &index)
         return IDMA_G0;
     case 1:
         return IDMA_G1;
+
+    // following IDMA-channels lead to DECON DMA crashes/freezes
     case 2:
+        return IDMA_G2;
     case 3:
-        // IDMA_G2 is used as SecureDMA and both G2 and G3 lead to DECON DMA Register failures
+        return IDMA_G3;
+
     default:
         return -1;
     }
