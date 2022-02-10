@@ -126,7 +126,7 @@ enum decon_idma_type {
 	IDMA_VGR1,
 	IDMA_G2,
 	IDMA_G3,
-	MAX_DECON_DMA_TYPE
+	IDMA_MAX,
 };
 
 struct vpp_params {
