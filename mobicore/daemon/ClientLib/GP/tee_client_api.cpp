@@ -39,6 +39,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#pragma clang diagnostic ignored "-Wfortify-source"
+
 //------------------------------------------------------------------------------
 // Macros
 #define _TEEC_GET_PARAM_TYPE(t, i) (((t) >> (4*i)) & 0xF)
