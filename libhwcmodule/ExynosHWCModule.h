@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2012 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,9 @@ const int AVAILABLE_GSC_UNITS[] = { 0, 2, 1, 1, 5, 4 };
 
 #define MPP_DEFAULT     MPP_VGR
 
-#define EXTERNAL_MPPS   5
+const size_t FIMD_EXT_MPP_IDX = 0;
+const size_t HDMI_EXT_MPP_IDX = 1;
+const size_t WFD_EXT_MPP_IDX = 2;
 
 struct exynos_mpp_t {
     int type;
