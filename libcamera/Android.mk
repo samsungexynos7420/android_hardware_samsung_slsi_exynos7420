@@ -92,6 +92,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../libcamera/SensorInfos
 endif
 
 LOCAL_SRC_FILES:= \
+	../../exynos/libcamera/common_v2/CameraParametersVendor.cpp \
 	../../exynos/libcamera/common_v2/ExynosCameraFrame.cpp \
 	../../exynos/libcamera/common_v2/ExynosCameraMemory.cpp \
 	../../exynos/libcamera/common_v2/ExynosCameraFrameManager.cpp \
