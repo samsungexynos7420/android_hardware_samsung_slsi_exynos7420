@@ -58,6 +58,7 @@ endif
 LOCAL_CFLAGS += -DUSE_CAMERA2_API_SUPPORT
 
 LOCAL_C_INCLUDES += \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
 	$(LOCAL_PATH)/../include \
 	$(LOCAL_PATH)/../libcamera3 \
 	$(TOP)/system/media/camera/include \
@@ -83,6 +84,9 @@ LOCAL_C_INCLUDES += \
 	$(TOP)/frameworks/native/include \
 	$(TOP)/hardware/camera/SensorListener \
 	$(TOP)/hardware/camera/UniPlugin/include
+
+LOCAL_ADDITIONAL_DEPENDENCIES := \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../libcamera/SensorInfos
 

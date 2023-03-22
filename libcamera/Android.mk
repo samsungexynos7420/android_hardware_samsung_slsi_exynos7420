@@ -54,6 +54,7 @@ endif
 LOCAL_CFLAGS += -D$(shell echo $(project_camera) | tr a-z A-Z)_CAMERA
 
 LOCAL_C_INCLUDES += \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
 	$(LOCAL_PATH)/../include \
 	$(LOCAL_PATH)/../libcamera \
 	$(LOCAL_PATH)/../libcamera/SensorInfos \
@@ -80,6 +81,9 @@ LOCAL_C_INCLUDES += \
 	$(TOP)/external/libcxx/include \
 	$(TOP)/frameworks/native/include \
 	$(TOP)/hardware/camera/UniPlugin/include
+
+LOCAL_ADDITIONAL_DEPENDENCIES := \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 ifneq ($(LOCAL_PROJECT_DIR),)
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../libcameraSec/$(LOCAL_PROJECT_DIR)
