@@ -46,7 +46,7 @@ struct ExynosSensorInfoBase *createExynosCamera3SensorInfo(int camId)
         sensorInfo = new ExynosCamera3SensorS5K5E3();
         break;
     case SENSOR_NAME_IMX240:
-        sensorInfo = new ExynosCamera3SensorIMX240_2P2();
+        sensorInfo = new ExynosCamera3SensorIMX240_2P2(sensorId);
         break;
     case SENSOR_NAME_S5K4E6:
         sensorInfo = new ExynosCamera3SensorS5K4E6();
@@ -78,7 +78,7 @@ ExynosCamera3SensorS5K5E3::ExynosCamera3SensorS5K5E3() : ExynosCamera3SensorS5K5
 {
 };
 
-ExynosCamera3SensorIMX240_2P2::ExynosCamera3SensorIMX240_2P2() : ExynosCamera3SensorIMX240_2P2Base()
+ExynosCamera3SensorIMX240_2P2::ExynosCamera3SensorIMX240_2P2(int sensorId) : ExynosCamera3SensorIMX240_2P2Base(sensorId)
 {
 };
 
