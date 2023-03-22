@@ -27,18 +27,18 @@ exynos7420_dirs += \
 	gralloc
 endif
 
-#ifeq ($(BOARD_BACK_CAMERA_USES_EXTERNAL_CAMERA), true)
-#exynos7420_dirs += \
-#	libcamera_external
-#else ifeq ($(BOARD_FRONT_CAMERA_USES_EXTERNAL_CAMERA), true)
-#exynos7420_dirs += \
-#	libcamera_external
-#else
-#exynos7420_dirs += \
-#	libcamera \
-#	libcamera3 \
-#	libcameraInterface
-#endif
+ifeq ($(BOARD_BACK_CAMERA_USES_EXTERNAL_CAMERA), true)
+exynos7420_dirs += \
+	libcamera_external
+else ifeq ($(BOARD_FRONT_CAMERA_USES_EXTERNAL_CAMERA), true)
+exynos7420_dirs += \
+	libcamera_external
+else
+exynos7420_dirs += \
+	libcamera \
+	libcamera3 \
+	libcameraInterface
+endif
 
 include $(call all-named-subdir-makefiles,$(exynos7420_dirs))
 

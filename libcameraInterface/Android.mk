@@ -111,11 +111,9 @@ endif
 $(foreach file,$(LOCAL_SRC_FILES),$(shell touch '$(LOCAL_PATH)/$(file)'))
 
 ifeq ($(BOARD_CAMERA_GED_FEATURE), true)
-LOCAL_MODULE := camera.$(TARGET_BOOTLOADER_BOARD_NAME)
+LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
 else
-LOCAL_MODULE := camera.$(TARGET_BOOTLOADER_BOARD_NAME)
-# Temporary modified
-#LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
+LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
 endif
 LOCAL_MODULE_TAGS := optional
 

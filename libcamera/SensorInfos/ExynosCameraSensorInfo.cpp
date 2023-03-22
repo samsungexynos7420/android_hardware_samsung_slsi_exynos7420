@@ -41,6 +41,12 @@ struct ExynosSensorInfoBase *createExynosCamera1SensorInfo(int camId)
     case SENSOR_NAME_S5K5E8:
         sensorInfo = new ExynosSensorS5K5E8();
         break;
+    case SENSOR_NAME_S5K4E6:
+        sensorInfo = new ExynosSensorS5K4E6();
+        break;
+    case SENSOR_NAME_IMX240:
+        sensorInfo = new ExynosSensorIMX240_2P2();
+        break;
     default:
         android_printAssert(NULL, LOG_TAG, "ASSERT(%s[%d]):Unknown sensor(%d), create default sensor, assert!!!!",
             __FUNCTION__, __LINE__, camId);
@@ -131,6 +137,42 @@ ExynosSensorS5K5E2::ExynosSensorS5K5E2()
 };
 
 ExynosSensorS5K5E8::ExynosSensorS5K5E8()
+{
+    effectList =
+          EFFECT_NONE
+        | EFFECT_MONO
+        | EFFECT_NEGATIVE
+        /* | EFFECT_SOLARIZE */
+        | EFFECT_SEPIA
+        | EFFECT_POSTERIZE
+        | EFFECT_COLD_VINTAGE
+        | EFFECT_BLUE
+        | EFFECT_RED_YELLOW
+        | EFFECT_AQUA
+        /* | EFFECT_WHITEBOARD */
+        /* | EFFECT_BLACKBOARD */
+        ;
+};
+
+ExynosSensorIMX240_2P2::ExynosSensorIMX240_2P2()
+{
+    effectList =
+          EFFECT_NONE
+        | EFFECT_MONO
+        | EFFECT_NEGATIVE
+        /* | EFFECT_SOLARIZE */
+        | EFFECT_SEPIA
+        | EFFECT_POSTERIZE
+        | EFFECT_COLD_VINTAGE
+        | EFFECT_BLUE
+        | EFFECT_RED_YELLOW
+        | EFFECT_AQUA
+        /* | EFFECT_WHITEBOARD */
+        /* | EFFECT_BLACKBOARD */
+        ;
+};
+
+ExynosSensorS5K4E6::ExynosSensorS5K4E6()
 {
     effectList =
           EFFECT_NONE

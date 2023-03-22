@@ -56,5 +56,15 @@ struct ExynosSensorS5K5E8 : public ExynosSensorS5K5E8Base {
 public:
     ExynosSensorS5K5E8();
 };
+
+struct ExynosSensorIMX240_2P2 : public ExynosSensorIMX240_2P2Base {
+public:
+    ExynosSensorIMX240_2P2();
+};
+
+struct ExynosSensorS5K4E6 : public ExynosSensorS5K4E6Base {
+public:
+    ExynosSensorS5K4E6();
+};
 }; /* namespace android */
 #endif

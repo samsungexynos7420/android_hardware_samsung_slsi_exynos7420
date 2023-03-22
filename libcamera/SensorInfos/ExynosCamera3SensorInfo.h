@@ -43,6 +43,15 @@ public:
     ExynosCamera3SensorS5K5E3();
 };
 
+struct ExynosCamera3SensorIMX240_2P2 : public ExynosCamera3SensorIMX240_2P2Base {
+public:
+    ExynosCamera3SensorIMX240_2P2();
+};
+
+struct ExynosCamera3SensorS5K4E6 : public ExynosCamera3SensorS5K4E6Base {
+public:
+    ExynosCamera3SensorS5K4E6();
+};
 /* Helpper functions */
 struct ExynosSensorInfoBase *createExynosCamera3SensorInfo(int sensorName);
 
