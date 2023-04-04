@@ -107,7 +107,6 @@ const int AVAILABLE_GSC_UNITS[] = { 0, 2, 1, 1, 5, 4 };
 #define MPP_VG          0
 #define MPP_VGR         2
 #define MPP_MSC         4
-#define MPP_VPP_G       10
 
 #define MPP_DEFAULT     MPP_VGR
 
@@ -131,10 +130,11 @@ struct exynos_mpp_t {
 // Order changed to work around the VG-channels (which do not have working blending)
 //
 // Current state:
-//     - 6 working HW windows (should be enough for most things)
+//     - 7 working HW windows (should be enough for most things)
 //     - VG-channels have been bound to non-blending layers only,
 //       giving us one more free HW window + one reserve for another
 //       non-blending layer (VG1), VG0 normally is bound to window #0
+//     - mInternalDMAs used instead of MPP_VPP_G 
 //
 //  - VG          --  Working as expected, unable to work with blending
 //    - VG0         -- Normally bound to window #0 (background-layer)
@@ -142,17 +142,8 @@ struct exynos_mpp_t {
 //  - VGR         --  Fully working and stable
 //    - VGR0
 //    - VGR1
-//  - VPP_G       --  Partially working and stable
-//    - VPP_G0      --  Fully working and stable
-//    - VPP_G1      --  Same as VPP_G0
-//    - VPP_G2      --  Leads to DECON DMA Register crashes/freezes
 //
-const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {MPP_VPP_G, 0}, {MPP_VPP_G, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
-
-//
-// removes support for blending from VG-channels
-//
-#define MPP_VG_IS_BLEND_INCAPABLE
+const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {MPP_VGR, 0}, {MPP_VGR, 1}};
 
 //
 // confirmed by decompiling stock-HWC
@@ -164,9 +155,6 @@ const exynos_mpp_t AVAILABLE_INTERNAL_MPP_UNITS[] = {{MPP_VG, 0}, {MPP_VG, 1}, {
 //
 const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}, {MPP_MSC, 0}};
 
-// Overriden to work around VG-channels (See AVAILABLE_INTERNAL_MPP_UNITS)
-const uint32_t VPP_ASSIGN_ORDER[] = {MPP_VG, MPP_VPP_G, MPP_VGR};
-#define VPP_ASSIGN_ORDER_DEFINED
 
 #define DEFAULT_MPP_DST_FORMAT HAL_PIXEL_FORMAT_RGBX_8888
 
@@ -188,10 +176,10 @@ static int MPP_VPP_G_TYPE(const int &index)
         return IDMA_G0;
     case 1:
         return IDMA_G1;
-
-    // following IDMA-channels lead to DECON DMA crashes/freezes
+    // used as secure DMA - bound to window 6
     case 2:
         return IDMA_G2;
+    // reserved for libvppvirtualdisplay
     case 3:
         return IDMA_G3;
 
