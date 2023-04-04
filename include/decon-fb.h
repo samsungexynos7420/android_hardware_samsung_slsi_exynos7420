@@ -11,7 +11,7 @@
 
 #ifndef ___SAMSUNG_DECON_H__
 #define ___SAMSUNG_DECON_H__
-#define S3C_FB_MAX_WIN (5)
+#define S3C_FB_MAX_WIN (7)
 #define MAX_DECON_WIN (7)
 #define DECON_WIN_UPDATE_IDX MAX_DECON_WIN
 #define MAX_BUF_PLANE_CNT (3)
