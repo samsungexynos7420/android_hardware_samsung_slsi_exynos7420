@@ -19,10 +19,27 @@
 ExynosVirtualDisplayModule::ExynosVirtualDisplayModule(struct exynos5_hwc_composer_device_1_t *pdev)
     : ExynosVirtualDisplay(pdev)
 {
+    mInternalDMAs.add(IDMA_G3);
+    mGLESFormat = HAL_PIXEL_FORMAT_BGRA_8888;
 }
 
 ExynosVirtualDisplayModule::~ExynosVirtualDisplayModule()
 {
+}
+
+void ExynosVirtualDisplayModule::configureWriteBack(hwc_display_contents_1_t *contents,
+        decon_win_config_data &win_data)
+{
+	private_handle_t *outBufHandle = private_handle_t::dynamicCast(contents->outbuf);
+	if(outBufHandle != NULL){
+		//outBufHandle->
+		// TODO
+	}
+}
+
+bool ExynosVirtualDisplayModule::isSupportGLESformat()
+{
+    return mGLESFormat == HAL_PIXEL_FORMAT_BGRA_8888;
 }
 
 int32_t ExynosVirtualDisplayModule::getDisplayAttributes(const uint32_t attribute)
