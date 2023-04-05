@@ -47,6 +47,7 @@
 #define DECON_WB_DEV_NAME   "/dev/graphics/fb1"
 #define DECON_EXT_BASE_WINDOW   1
 #define DECON_WB_SUBDEV_NAME   "exynos-decon1"
+#define HDMI_RESERVE_MEM_DEV_NAME "/sys/class/ion_cma/ion_video_ext/isolate"
 
 //
 // confirmed by decompiling stock-HWC/using default values
