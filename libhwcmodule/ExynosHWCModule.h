@@ -51,8 +51,11 @@
 
 // confirmed by decompiling stock hwc
 #define DECON_WB_DEV_NAME   "/dev/graphics/fb1"
+#define DECON_ODMA_WB		8
 #define DECON_EXT_BASE_WINDOW   1
 #define DECON_WB_SUBDEV_NAME   "exynos-decon1"
+#define DECON_PAD_WB    6
+#define DECON_2_MAX_OVERLAY_COUNT    4
 #define HDMI_RESERVE_MEM_DEV_NAME "/sys/class/ion_cma/ion_video_ext/isolate"
 
 //
