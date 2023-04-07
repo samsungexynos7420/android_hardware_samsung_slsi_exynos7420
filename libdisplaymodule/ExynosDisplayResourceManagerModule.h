@@ -7,7 +7,6 @@ class ExynosDisplayResourceManagerModule : public ExynosDisplayResourceManager {
     public:
         ExynosDisplayResourceManagerModule(struct exynos5_hwc_composer_device_1_t *pdev);
         virtual ~ExynosDisplayResourceManagerModule();
-        virtual void preAssignResource();
 };
 
 #endif

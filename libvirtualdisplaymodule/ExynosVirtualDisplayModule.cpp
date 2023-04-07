@@ -39,7 +39,8 @@ void ExynosVirtualDisplayModule::configureWriteBack(hwc_display_contents_1_t *co
 
 bool ExynosVirtualDisplayModule::isSupportGLESformat()
 {
-    return mGLESFormat == HAL_PIXEL_FORMAT_BGRA_8888;
+    if(mGLESFormat == HAL_PIXEL_FORMAT_BGRA_8888)
+        return true;
 }
 
 int32_t ExynosVirtualDisplayModule::getDisplayAttributes(const uint32_t attribute)

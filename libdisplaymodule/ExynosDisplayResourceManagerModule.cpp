@@ -44,17 +44,3 @@ ExynosDisplayResourceManagerModule::~ExynosDisplayResourceManagerModule()
 {
 }
 
-void ExynosDisplayResourceManagerModule::preAssignResource()
-{
-#if defined(USES_SINGLE_DECON)
-    if (mHwc->secondaryDisplay->mBlanked == false)
-        preAssignIntMpp(mHwc->secondaryDisplay, MPP_DEFAULT);
-#endif
-#ifdef USES_VIRTUAL_DISPLAY
-    if (mHwc->virtualDisplay->mIsWFDState) {
-        preAssignIntMpp(mHwc->virtualDisplay, MPP_DEFAULT);
-        if (mHwc->virtualDisplay->mHasDrmSurface)
-            preAssignIntMpp(mHwc->virtualDisplay, MPP_VG);
-    }
-#endif
-}
