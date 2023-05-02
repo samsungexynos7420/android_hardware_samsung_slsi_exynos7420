@@ -49,14 +49,17 @@
 #define VSYNC_DEV_MIDDLE2  "platform/exynos-sysmmu.30/exynos-sysmmu.11/"
 #endif
 
-// confirmed by decompiling stock hwc
+// Decon WB
+// Used for virtual display. Some of these values might be wrong, but im pretty sure about most of them
+//
+// Currently, virtual display is unstable and can crash the hwcomposer. Some of these values might be
+// the cause, but I think the problem lies elsewhere
 #define DECON_WB_DEV_NAME   "/dev/graphics/fb1"
 #define DECON_ODMA_WB		8
 #define DECON_EXT_BASE_WINDOW   1
 #define DECON_WB_SUBDEV_NAME   "exynos-decon1"
 #define DECON_PAD_WB    6
 #define DECON_2_MAX_OVERLAY_COUNT    4
-#define HDMI_RESERVE_MEM_DEV_NAME "/sys/class/ion_cma/ion_video_ext/isolate"
 
 //
 // confirmed by decompiling stock-HWC/using default values
@@ -93,6 +96,7 @@
 //
 #define WINUPDATE_MIN_HEIGHT 16
 
+#define HDMI_RESERVE_MEM_DEV_NAME "/sys/class/ion_cma/ion_video_ext/isolate"
 #define SMEM_PATH "/dev/s5p-smem"
 #define SECMEM_IOC_SET_VIDEO_EXT_PROC   _IOWR('S', 13, int)
 
@@ -142,19 +146,19 @@ struct exynos_mpp_t {
 // .rodata:000124BC                                         ; DATA XREF: ExynosDisplayResourceManagerModule::ExynosDisplayResourceManagerModule(exynos5_hwc_composer_device_1_t *)+2E↑o
 // .rodata:000124BC                                         ; .text:off_DA70↑o
 //
-// Order changed to work around the VG-channels (which do not have working blending)
 //
 // Current state:
-//     - 7 working HW windows (should be enough for most things)
-//     - VG-channels have been bound to non-blending layers only,
-//       giving us one more free HW window + one reserve for another
-//       non-blending layer (VG1), VG0 normally is bound to window #0
-//     - mInternalDMAs used instead of MPP_VPP_G 
+//     - 7 working HW windows
+//     - mInternalDMAs used for IDMA_GX instead of MPP_VPP_G 
 //
-//  - VG          --  Working as expected, unable to work with blending
-//    - VG0         -- Normally bound to window #0 (background-layer)
-//    - VG1         -- Reserve if Android requests another non-blending layer
-//  - VGR         --  Fully working and stable
+//  - G		--  Working as intended and stable
+//    - G0
+//    - G1
+//    - G2	-- Bound to window 6. Used as secure DMA and handled separately.
+//  - VG          --  Working as intended and stable, unable to work with blending
+//    - VG0
+//    - VG1
+//  - VGR         --  Working as intended and stable
 //    - VGR0
 //    - VGR1
 //
@@ -194,7 +198,7 @@ static int MPP_VPP_G_TYPE(const int &index)
     // used as secure DMA - bound to window 6
     case 2:
         return IDMA_G2;
-    // reserved for libvppvirtualdisplay
+    // reserved for libvpphdmi
     case 3:
         return IDMA_G3;
 
