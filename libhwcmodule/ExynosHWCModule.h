@@ -188,6 +188,7 @@ const exynos_mpp_t AVAILABLE_EXTERNAL_MPP_UNITS[] = {{MPP_MSC, 0}, {MPP_MSC, 0},
 // .rodata:0001245C dword_1245C     DCD 0, 1, 6, 7          ; DATA XREF: ExynosDisplay::getDeconDMAType(ExynosMPPModule *)+20↑o
 // .rodata:0001245C                                         ; .text:off_CA70↑o
 //
+__attribute__((unused))
 static int MPP_VPP_G_TYPE(const int &index)
 {
     switch (index) {
