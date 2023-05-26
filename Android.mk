@@ -35,9 +35,9 @@ exynos7420_dirs += \
 	libcamera_external
 else
 exynos7420_dirs += \
-	libcamera \
-	libcamera3 \
-	libcameraInterface
+	libexynoscamera \
+	libexynoscamera3 \
+	camera.exynos5
 endif
 
 include $(call all-named-subdir-makefiles,$(exynos7420_dirs))
